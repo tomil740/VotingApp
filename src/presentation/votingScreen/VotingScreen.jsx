@@ -1,19 +1,15 @@
 import VotingVm from "./votingVm"
 import { useState ,useEffect} from "react";
 import VotingUiState from "./VotingUiState";
-import VotableItem from "../../domain/VotableItem";
-
+import VotableItem from "./components/VotableItem";
+import User from "../../domain/models/User";
 
 function VotingScreen(){
-    const [uiState,setUiState] = useState(new VotingUiState());
+    const [uiState,setUiState] = useState(new VotingUiState(new User(-1,"someName","someEmail@","somePassowrd@",false,-1)));
     const vm = useState(new VotingVm(uiState,setUiState))[0];
 
     const listItems = uiState.votableItems.map(item =>
-        <section className="votableItem">
-                <h1>{item.name}</h1>
-                <h3>the voted item : {item.itemVotes}</h3>
-                <button onClick={()=> {vm.onVote(item.id)}}> vote !</button>
-            </section> 
+        <VotableItem isVoted={uiState.userVote} item={item} callBack={()=> {vm.onVote(item.id)}}/>
     )
 
   useEffect(() => {
@@ -23,9 +19,12 @@ function VotingScreen(){
         // Clean up interval on component unmount
     return () => clearInterval(intervalId);
     }, [vm]);
-            
+    
+    const theLine = (uiState.user.userVote != -1) ? `you vote to :${(uiState.votableItems[uiState.user.userVote].name)}` : "please vote:"
+    
+
   return (<>
-  <h1>the list</h1>
+  <h1>Hay {uiState.user.name},{theLine}</h1>
   {listItems}
   </>);
 }

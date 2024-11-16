@@ -1,10 +1,10 @@
 class VotingUiState{
     votableItems;
-    userVote;
+    user;
 
-    constructor(){
+    constructor(user){
         this.votableItems = [];
-        this.userVote = -1;
+        this.user = user;
     }
 }
 

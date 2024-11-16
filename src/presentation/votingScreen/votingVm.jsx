@@ -1,14 +1,21 @@
-import VotableItem from "../../domain/VotableItem";
+import VotableItem from "../../domain/models/VotableItem";
 import VotingUiState from "./VotingUiState";
+import Repository from "../../domain/repository";
 
 
 class VotingVm{
     uiState;
+    repository;
     
 
     constructor(initUiState){
         this.uiState = initUiState;
+        this.repository = new Repository();
         this.initData();
+
+        const theS =(this.repository.signIn("yahav@somthing","yahav-p-yahav"));
+        this.uiState = {...this.uiState, user:theS};
+        console.log("sign in as",this.uiState.user);
     }
 
     initData(){
@@ -16,7 +23,7 @@ class VotingVm{
         const names = ["goku","vegeta","gohn","cell"];
         const newData=[];
         for(let i = 0; i<4; i++){
-            newData[i] = new VotableItem(i,names[i],false,this.onVote,0);
+            newData[i] = new VotableItem(i,names[i],0);
         }
         this.uiState = {...this.uiState,votableItems:newData};
     }
@@ -26,10 +33,9 @@ class VotingVm{
         * on -1 id the function will clean the votes from our screen only 
     */
     onVote(id){
-        console.log("called");
             //clean previous vote
             const updateItems =  this.uiState.votableItems.map((item)=> {
-                if(this.uiState.userVote != -1){
+                if(this.uiState.user.userVote != -1){
                     if(id == -1){
                         item.isVoted = false;
                     }
@@ -41,7 +47,11 @@ class VotingVm{
                 return item;
             })
             //update the ui state object
-            this.uiState = {...this.uiState,votableItems:updateItems,userVote:id};        
+            const user = {...this.uiState.user, userVote:id}
+            this.uiState = {...this.uiState,votableItems:updateItems,user:user};     
+            
+            console.log(this.uiState.user);
+   
     }
 }
 
