@@ -6,16 +6,19 @@ import Repository from "../../domain/repository";
 class VotingVm{
     uiState;
     repository;
+    onSignOutState;
     
 
-    constructor(initUiState){
+    constructor(initUiState,repo,onSignOutState){
         this.uiState = initUiState;
-        this.repository = new Repository();
-        this.initData();
+        this.repository = repo;
+        this.onSignOutState = onSignOutState;
 
         const theS =(this.repository.signIn("yahav@somthing","yahav-p-yahav"));
         this.uiState = {...this.uiState, user:theS};
-        console.log("sign in as",this.uiState.user);
+
+        this.initData();
+
     }
 
     initData(){
@@ -23,9 +26,16 @@ class VotingVm{
         const names = ["goku","vegeta","gohn","cell"];
         const newData=[];
         for(let i = 0; i<4; i++){
-            newData[i] = new VotableItem(i,names[i],0);
+            const myVote = (this.uiState.user.userVote == i) ? 1 : 0;
+            newData[i] = new VotableItem(i,names[i],myVote);
         }
         this.uiState = {...this.uiState,votableItems:newData};
+    }
+
+    onSignOut(){
+        console.log("signOut")
+        localStorage.setItem("signedUserId",-1);
+        this.onSignOutState()
     }
 
     /*
@@ -46,12 +56,11 @@ class VotingVm{
                 }
                 return item;
             })
+            this.repository.onUserVote(this.uiState.user.id,id);
             //update the ui state object
             const user = {...this.uiState.user, userVote:id}
             this.uiState = {...this.uiState,votableItems:updateItems,user:user};     
-            
-            console.log(this.uiState.user);
-   
+               
     }
 }
 

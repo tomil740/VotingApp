@@ -4,9 +4,9 @@ import VotingUiState from "./VotingUiState";
 import VotableItem from "./components/VotableItem";
 import User from "../../domain/models/User";
 
-function VotingScreen(){
+function VotingScreen({repo,signOut}){
     const [uiState,setUiState] = useState(new VotingUiState(new User(-1,"someName","someEmail@","somePassowrd@",false,-1)));
-    const vm = useState(new VotingVm(uiState,setUiState))[0];
+    const vm = useState(new VotingVm(uiState,repo,signOut))[0];
 
     const listItems = uiState.votableItems.map(item =>
         <VotableItem isVoted={uiState.userVote} item={item} callBack={()=> {vm.onVote(item.id)}}/>
@@ -25,6 +25,7 @@ function VotingScreen(){
 
   return (<>
   <h1>Hay {uiState.user.name},{theLine}</h1>
+  <button onClick={()=>{vm.onSignOut()}}>sign out:</button>
   {listItems}
   </>);
 }
