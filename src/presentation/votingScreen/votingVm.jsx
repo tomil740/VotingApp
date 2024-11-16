@@ -24,10 +24,13 @@ class VotingVm{
     initData(){
         //init some voting items:
         const names = ["goku","vegeta","gohn","cell"];
+        const imgUrls = ["https://www.pngall.com/wp-content/uploads/13/Goku-PNG-Images-HD.png","https://www.pngall.com/wp-content/uploads/15/Majin-Vegeta-PNG-Background.png",
+            "https://www.pngall.com/wp-content/uploads/14/Goku-Hair.png","https://www.pngall.com/wp-content/uploads/14/Goku-Hair-PNG-Background.png"
+        ]
         const newData=[];
         for(let i = 0; i<4; i++){
             const myVote = (this.uiState.user.userVote == i) ? 1 : 0;
-            newData[i] = new VotableItem(i,names[i],myVote);
+            newData[i] = new VotableItem(i,names[i],myVote,imgUrls[i]);
         }
         this.uiState = {...this.uiState,votableItems:newData};
     }

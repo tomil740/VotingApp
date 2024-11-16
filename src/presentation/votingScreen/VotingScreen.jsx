@@ -23,11 +23,14 @@ function VotingScreen({repo,signOut}){
     const theLine = (uiState.user.userVote != -1) ? `you vote to :${(uiState.votableItems[uiState.user.userVote].name)}` : "please vote:"
     
 
-  return (<>
-  <h1>Hay {uiState.user.name},{theLine}</h1>
-  <button onClick={()=>{vm.onSignOut()}}>sign out:</button>
-  {listItems}
-  </>);
+  return (
+    <section className="votingContiner">
+        <h1>Hay {uiState.user.name},{theLine}</h1>
+        <button className="signOutBut" onClick={()=>{vm.onSignOut()}}>sign out:</button>
+      <section className="VotableItemsContatiner">
+        {listItems}
+      </section>
+    </section>);
 }
 
 export default VotingScreen
