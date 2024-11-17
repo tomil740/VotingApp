@@ -16,7 +16,8 @@ class VotingVm{
         this.onSignOutState = onSignOutState;
         this.onExposeAdmin = onExposeAdmin;
 
-        const theS =(this.repository.signIn("yahav@somthing","yahav-p-yahav"));
+        //const theS =(this.repository.signIn("yahav@somthing","yahav-p-yahav"));
+        const theS = this.repository.getLoginUser();
         this.uiState = {...this.uiState, user:theS};
 
         this.initData();

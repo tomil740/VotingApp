@@ -2,6 +2,8 @@ import Repository from "../domain/repository"
 import {useEffect, useState} from "react";
 import VotingScreen from "./votingScreen/VotingScreen";
 import AdminScreen from "./adminScreen/AdminScreen";
+import LoginScreen from "./LoginScreen/LoginScreen";
+
 
 
 /*
@@ -23,8 +25,8 @@ function NavigationHoster(){
         setIsSignIn(true)
     }}>sign In</button>
 
-    const [currentScreen,setCurrentScreen] = useState(signInScreen); 
-
+    const [currentScreen,setCurrentScreen] = useState(<LoginScreen repo={repo} onSignIn={()=>setIsSignIn(true)} />); 
+ 
     useEffect(()=>{
         if(isSignIn){
             if(exposeAdminScreen){
@@ -33,7 +35,7 @@ function NavigationHoster(){
                 setCurrentScreen(<VotingScreen repo={repo} signOut={()=>setIsSignIn(false)} exposeAdmin={()=>setExposeAdminScreen(true)}/>)
             }
         }else{
-            setCurrentScreen(signInScreen)
+            setCurrentScreen(<LoginScreen repo={repo} onSignIn={()=>setIsSignIn(true)} />)
         }
     },[isSignIn,exposeAdminScreen])
 

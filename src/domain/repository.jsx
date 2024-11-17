@@ -5,13 +5,6 @@ class Repository{
 
     constructor(){
         this.usersLst = this.#initUsers();
-        //initalize the local storage :
-        //will be loge out on refresh...
-        //localStorage.setItem("signedUserId",-1);
-        //run for every user id (currently 2 users)
-        //localStorage.setItem(`userId${0}`, -1);
-        //localStorage.setItem(`userId${1}`, -1);
-
     }
 
     #initUsers(){
@@ -20,7 +13,7 @@ class Repository{
         //get users votes/initalize the localStorage key values
         for(let i =0 ; i < names.length; i++){
             const userVote = this.getUserVoteById(i);
-            const user = new User(i,names[i],`${names[i]}@somthing`,`${names[i]}-p-${names[i]}`,(i%2 != 0),userVote);
+            const user = new User(i,names[i],`${names[i]}@something`,`${names[i]}-p-${names[i]}`,(i%2 != 0),userVote);
             res.push(user);
         }
         return res;
@@ -34,6 +27,13 @@ class Repository{
         })
         this.usersLst =res;
         return this.usersLst;
+    }
+
+    getLoginUser(){
+        const userId = localStorage.getItem("signedUserId");
+        const userVote = this.getUserVoteById(userId);
+        const user = {...this.usersLst[userId],userVote:userVote};
+        return user
     }
 
     onUserVote(userId,userVote){
@@ -79,13 +79,15 @@ class Repository{
                 //update the state
                 res = {...item,userVote:userVote};
                 }else if(item.email == email){
-                    res.email = "valid"
+                    res.email = ""
                     res.passWord = "passWrod is not correct";
                 }else{
-                    res.passWord = "valid"
+                    res.passWord = ""
                     res.email = "email is not correct";
                 }
             }else{
+                res.passWord = "passWrod is not correct";
+                res.email = "email is not correct";
                 res.name = "there is no matche user,try again..."
             }
             counter++;
