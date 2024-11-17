@@ -1,20 +1,23 @@
 import AdminUiState from "./AdminUiState";
 import AdminVm from './AdminVm';
 import {useState,useEffect} from "react";
-
+import UserTableItem from './components/UserTableItem';
+import VerticalProgressBar from './components/VerticalProgressBar';
 
 function AdminScreen({repo,signOut,exposeAdmin}){
     const [uiState,setUiState] = useState(new AdminUiState());
     const vm = useState(new AdminVm(repo,uiState,signOut,exposeAdmin))[0];
 
-    const userItems = uiState.usersList.map(item =>
+    const voteValues = uiState.voteSumArr.map((item,index) =>{return(
         //create matched list item component
-        <h1>the user:{Object.values(item)}</h1>
-    )
-
-    const voteValues = uiState.voteSumArr.map(item =>
-        //create matched list item component
-        <h1>{`${item}/${uiState.usersList.length}`}</h1>
+        <VerticalProgressBar
+            currentValue={item}
+            maxValue={2}
+            header={`${vm.getVotAbleHeaderByIndex(index)[1]}`}
+            imgUrl={`${vm.getVotAbleHeaderByIndex(index)[0]}`}
+          />
+        )
+    }    
     )
 
   useEffect(() => {
@@ -27,16 +30,36 @@ function AdminScreen({repo,signOut,exposeAdmin}){
 
     return (
     <section className="AdminContainer">
+      <div className="topBar">
         <h1>Admin view:</h1>
-        <button className="signOutBut" onClick={()=>{vm.onSignOut()}}>sign out:</button>
-        <button className="signOutBut" onClick={()=>{vm.onBackToVote()}}>voting view</button>
+        <div className="buttonContainer">
+          <button className="signOutBut" onClick={() => vm.onSignOut()}>Sign Out</button>
+          <button className="signOutBut" onClick={() => vm.onBackToVote()}>Voting View</button>
+        </div>
+      </div>
       <section className="UsersTable">
-        {userItems}
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>isAdmin</th>
+              <th>userVote</th>
+            </tr>
+          </thead>
+          <tbody>
+             {uiState.usersList.map(user => (
+            <UserTableItem key={user.id} user={user} />
+          ))}
+          </tbody>
+        </table>
       </section>
-      <section className="VotesSummary">
-        {voteValues}
+      <section className="progressBarRow">
+         {voteValues}
       </section>
-    </section>);
+    </section>)
     
 }
 

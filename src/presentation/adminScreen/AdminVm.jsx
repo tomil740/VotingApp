@@ -40,6 +40,17 @@ class AdminVm{
     onBackToVote(){
         this.onBackToVote()
     }
+
+    getVotAbleHeaderByIndex(theIndex){
+        let res =  "All Users:";
+        let imgUrl = 'https://cch.edu.pk/wp-content/uploads/2023/05/Exam-Result-3-1-1200x600.jpg';
+        if(theIndex != 4){
+            let ress = this.repository.getVotingOptions()[theIndex]
+            imgUrl =ress.imgUrl;
+            res = ress.name;
+        }
+        return [imgUrl,res];
+    }
 }
 
 export default AdminVm;

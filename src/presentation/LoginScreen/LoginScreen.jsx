@@ -34,15 +34,43 @@ function LoginScreen({repo,onSignIn,}){
 
   return (
     <section className="loginContainer">
-      <form onSubmit={onsubmitForm} action="" className="formContainer">
-        <input ref={emailInputEle} value={email} onChange={(email)=>setEmail(email.target.value)} type="text" name="email" />
-        {uiState.errorMesE && <p style={{ color: 'red' }}>{uiState.errorMesE}</p>}
-        <input ref={passWrodInputEle} value={passWord} onChange={(passWord)=>setPassWord(passWord.target.value)} type="text" name="userName" id="userName" />
-        {uiState.errorMesP && <p style={{ color: 'red' }}>{uiState.errorMesP}</p>}
-        <button>Submit :</button>
-      </form>
-    </section>
-  )
+    <form onSubmit={onsubmitForm} action="" className="formContainer">
+      <h2 className="formTitle">Vote</h2>
+      <p className="formSubtitle">Sign In</p>
+      
+      <div className="inputGroup">
+        <label htmlFor="email">Email Address</label>
+        <input 
+          ref={emailInputEle} 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          type="email" 
+          name="email" 
+          id="email"
+          required 
+        />
+        {uiState.errorMesE && <p className="errorText">{uiState.errorMesE}</p>}
+      </div>
+
+      <div className="inputGroup">
+        <label htmlFor="password">Password</label>
+        <input 
+          ref={passWrodInputEle} 
+          value={passWord} 
+          onChange={(e) => setPassWord(e.target.value)} 
+          type="password" 
+          name="password" 
+          id="password"
+          required 
+        />
+        {uiState.errorMesP && <p className="errorText">{uiState.errorMesP}</p>}
+      </div>
+
+      <button type="submit" className="submitBtn">Sign In</button>
+
+    </form>
+</section>
+)
 }
 
 export default LoginScreen

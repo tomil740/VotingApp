@@ -75,3 +75,298 @@ div.votableItem div.ImageContainer img{
     height: 45vh;
     border-radius: 30px 30px 0 0;
 }
+
+
+/* Container for the whole login page */
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f6daef;
+    font-family: 'Roboto', sans-serif;
+    color: #261625;
+}
+
+/* Form container styling */
+.formContainer {
+    color: #6d5869;
+    border-radius: 8px;
+    padding: 30px;
+    padding-bottom: 75px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border: 2.3px solid #261625 ;
+}
+
+/* Form title and subtitle */
+.formTitle {
+    font-size: 72px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+}
+
+.formSubtitle {
+    font-size: 24px;
+    text-align: center;
+    color: #555;
+    margin: 0;
+    margin-bottom: 42px;
+}
+
+/* Input field group */
+.inputGroup {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+input {
+    width: 93%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: #ffd6f7;
+    color: #330834;
+}
+
+/* Focused input field */
+input:focus {
+    border-color: #261625;
+    box-shadow: 0 0 8px #261625;
+}
+
+/* Error messages */
+.errorText {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+/* Submit button */
+.submitBtn {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    background-color: #6d5869;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitBtn:hover {
+   background-color: #7f4d7b;
+   color: #ffffff;
+}
+
+
+/* Admin Container */
+.AdminContainer {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    /* Space between the sections */
+}
+
+/* Top Bar */
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #7f4d7b;
+    /* Primary color */
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #ffffff;
+    /* Text color on primary */
+}
+
+.topBar h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.buttonContainer {
+    display: flex;
+    gap: 10px;
+    /* Space between buttons */
+}
+
+.signOutBut {
+    background-color: #ffffff;
+    /* White background for the button */
+    color: #7f4d7b;
+    /* Text color matches the primary color */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signOutBut:hover {
+    background-color: #f1e0f3;
+    /* Light purple hover effect matching the primary color */
+    }
+
+/* Table container */
+.UsersTable {
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+/* Table styling */
+.UsersTable table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    /* White background for the table */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Table header */
+.UsersTable th {
+    background-color: #7f4d7b;
+    /* Primary color */
+    color: #ffffff;
+    /* Text color on primary */
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.UsersTable th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.UsersTable th:last-child {
+    border-top-right-radius: 8px;
+}
+
+/* Table body rows */
+.UsersTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.UsersTable tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Style for the last column (isAdmin and userVote) */
+.UsersTable td:last-child {
+    text-align: center;
+}
+
+/* Alternate row color for better readability */
+.UsersTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Highlighted row style (when user hovers over it) */
+.UsersTable tr:hover {
+    background-color: #f1e0f3;
+    /* Slightly lighter shade of the primary color for hover */
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+    .UsersTable table {
+        font-size: 14px;
+    }
+
+    .UsersTable th,
+    .UsersTable td {
+        padding: 8px;
+    }
+}
+
+/* Container for the entire vertical progress bar */
+.progressBarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    /* Width of the progress bar container */
+    margin: 20px;
+    /* Add some margin for spacing between bars */
+}
+
+/* Header style for the progress bar */
+.progressBarHeader {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #7f4d7b;
+    /* Primary color */
+}
+
+.progressBarHeader img{
+    width: 8vw;
+    height: 12vh;
+}
+
+/* Container for the progress bar */
+.progressBar {
+    width: 30px;
+    /* Width of the progress bar */
+    height: 200px;
+    /* Height of the progress bar */
+    background-color: #f0f0f0;
+    /* Light gray background */
+    border-radius: 10px;
+    border: 2px solid #7f4d7b;
+    /* Border color matching primary color */
+    position: relative;
+}
+
+/* Filled portion of the progress bar */
+.progressFill {
+    background-color: #7f4d7b;
+    /* Primary color */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-radius: 8px;
+}
+
+/* Display current and max values below the progress bar */
+.progressValues {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Container for the progress bars in a row */
+.progressBarRow {
+    display: flex;
+    justify-content: space-around;
+    /* Evenly space the progress bars in the row */
+    width: 100%;
+    margin-top: 40px;
+    /* Space between the top bar and the row of progress bars */
+}
