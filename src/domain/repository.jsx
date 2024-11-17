@@ -1,30 +1,57 @@
 import User from "./models/User"
+import VotableItem from "./models/VotableItem";
 
 class Repository{
 
     constructor(){
         this.usersLst = this.#initUsers();
         //initalize the local storage :
-        localStorage.setItem("signedUserId",-1);
+        //will be loge out on refresh...
+        //localStorage.setItem("signedUserId",-1);
+        //run for every user id (currently 2 users)
+        //localStorage.setItem(`userId${0}`, -1);
+        //localStorage.setItem(`userId${1}`, -1);
+
     }
 
     #initUsers(){
         const res = [];
         const names = ["yahav","liam"];
+        //get users votes/initalize the localStorage key values
         for(let i =0 ; i < names.length; i++){
-            const user = new User(i,names[i],`${names[i]}@somthing`,`${names[i]}-p-${names[i]}`,(i%2 != 0),-1);
-            //localStorage.setItem(`userId${i}`, -1);
+            const userVote = this.getUserVoteById(i);
+            const user = new User(i,names[i],`${names[i]}@somthing`,`${names[i]}-p-${names[i]}`,(i%2 != 0),userVote);
             res.push(user);
         }
         return res;
     }
 
     getAllUsers(){
+        const res = [];
+        this.usersLst.forEach((item)=>{
+            const userVote = this.getUserVoteById(item.id);
+            res.push({...item,userVote:userVote});
+        })
+        this.usersLst =res;
         return this.usersLst;
     }
 
     onUserVote(userId,userVote){
        localStorage.setItem(`userId${userId}`,userVote);
+    }
+
+    getVotingOptions(){
+        //init some voting items:
+        const names = ["goku","vegeta","gohn","cell"];
+        const imgUrls = ["https://www.pngall.com/wp-content/uploads/13/Goku-PNG-Images-HD.png","https://www.pngall.com/wp-content/uploads/15/Majin-Vegeta-PNG-Background.png",
+            "https://www.pngall.com/wp-content/uploads/14/Goku-Hair.png","https://www.pngall.com/wp-content/uploads/14/Goku-Hair-PNG-Background.png"
+        ]
+        const newData=[];
+        for(let i = 0; i<4; i++){
+            newData[i] = new VotableItem(i,names[i],0,imgUrls[i]);
+        }
+
+        return newData;
     }
 
     /*
@@ -63,8 +90,15 @@ class Repository{
             }
             counter++;
         }
-        console.log(res.userVote);
         return res;
+    }
+
+    getUserVoteById(userId){
+        const userVote = localStorage.getItem(`userId${userId}`);
+        if(userVote == undefined || userVote == null){
+            localStorage.setItem(`userId${userId}`,-1);
+        }
+        return userVote;
     }
 }
 

@@ -1,6 +1,8 @@
 import Repository from "../domain/repository"
 import {useEffect, useState} from "react";
 import VotingScreen from "./votingScreen/VotingScreen";
+import AdminScreen from "./adminScreen/AdminScreen";
+
 
 /*
     this component should controll our navigation between main features / screens while keep track on the 
@@ -25,11 +27,15 @@ function NavigationHoster(){
 
     useEffect(()=>{
         if(isSignIn){
-        setCurrentScreen(<VotingScreen repo={repo} signOut={()=>setIsSignIn(false)}/>)
+            if(exposeAdminScreen){
+                setCurrentScreen(<AdminScreen repo={repo} signOut={()=>setIsSignIn(false)} exposeAdmin={()=>setExposeAdminScreen(false)}/>)
+            }else{
+                setCurrentScreen(<VotingScreen repo={repo} signOut={()=>setIsSignIn(false)} exposeAdmin={()=>setExposeAdminScreen(true)}/>)
+            }
         }else{
             setCurrentScreen(signInScreen)
         }
-    },[isSignIn])
+    },[isSignIn,exposeAdminScreen])
 
     
     
