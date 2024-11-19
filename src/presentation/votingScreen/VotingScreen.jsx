@@ -20,7 +20,7 @@ function VotingScreen({repo,signOut,exposeAdmin}){
     return () => clearInterval(intervalId);
     }, [vm]);
     
-    const theLine = (uiState.user.userVote != -1) ? `you vote to :${(uiState.votableItems[uiState.user.userVote].name)}` : "please vote:"
+    const theLine = (uiState.user.userVote != -1) ? `you vote to :${(uiState.votableItems[uiState.user.userVote].name)} ` : "please vote:"
     
 
   return (
