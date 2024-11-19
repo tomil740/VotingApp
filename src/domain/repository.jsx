@@ -1,10 +1,11 @@
+import dbDao from "../data/dbDao";
 import User from "./models/User"
 import VotableItem from "./models/VotableItem";
 
 class Repository{
 
     constructor(){
-        this.usersLst = this.#initUsers();
+        //this.usersLst = this.#initUsers();
     }
 
     #initUsers(){
@@ -20,38 +21,20 @@ class Repository{
     }
 
     getAllUsers(){
-        const res = [];
-        this.usersLst.forEach((item)=>{
-            const userVote = this.getUserVoteById(item.id);
-            res.push({...item,userVote:userVote});
-        })
-        this.usersLst =res;
-        return this.usersLst;
+        return dbDao.getAllUsers();
     }
 
     getLoginUser(){
         const userId = localStorage.getItem("signedUserId");
-        const userVote = this.getUserVoteById(userId);
-        const user = {...this.usersLst[userId],userVote:userVote};
-        return user
+        return dbDao.getUserById(userId);
     }
 
     onUserVote(userId,userVote){
-       localStorage.setItem(`userId${userId}`,userVote);
+        dbDao.updateUserVote(userId,userVote);
     }
 
     getVotingOptions(){
-        //init some voting items:
-        const names = ["goku","vegeta","gohn","cell"];
-        const imgUrls = ["https://www.pngall.com/wp-content/uploads/13/Goku-PNG-Images-HD.png","https://www.pngall.com/wp-content/uploads/15/Majin-Vegeta-PNG-Background.png",
-            "https://www.pngall.com/wp-content/uploads/14/Goku-Hair.png","https://www.pngall.com/wp-content/uploads/14/Goku-Hair-PNG-Background.png"
-        ]
-        const newData=[];
-        for(let i = 0; i<4; i++){
-            newData[i] = new VotableItem(i,names[i],0,imgUrls[i]);
-        }
-
-        return newData;
+        return dbDao.getAllVotingItems();
     }
 
     /*
@@ -66,6 +49,26 @@ class Repository{
     */
     signIn(email,passWord){
         let res = new User(-1,"someName","someEmail@","somePassowrd@",false,-1);
+
+        const a = dbDao.getUserByEmail(email);
+        
+        const theRes = (a.length < 1) ? res : a[0];
+
+        if(theRes.id == -1){
+             res.passWord = "passWrod is not correct";
+             res.email = "email is not correct";
+             res.name = "there is no matche user,try again..."
+        }else if(theRes.passWord == passWord){
+            res = theRes;
+            localStorage.setItem("signedUserId", theRes.id);
+        }else {
+            res.email = "";
+            res.passWord = "passWrod is not correct";
+        }
+
+        return res;
+
+/*
         let counter = 0;
         while(res.id == -1 && counter < this.usersLst.length){
             const item  = this.usersLst[counter];
@@ -93,15 +96,10 @@ class Repository{
             counter++;
         }
         return res;
+        */
     }
 
-    getUserVoteById(userId){
-        const userVote = localStorage.getItem(`userId${userId}`);
-        if(userVote == undefined || userVote == null){
-            localStorage.setItem(`userId${userId}`,-1);
-        }
-        return userVote;
-    }
+    
 }
 
 export default Repository;
