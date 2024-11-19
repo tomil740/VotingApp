@@ -1,24 +1,9 @@
 import dbDao from "../data/dbDao";
-import User from "./models/User"
-import VotableItem from "./models/VotableItem";
+import User from "./models/User";
 
 class Repository{
 
-    constructor(){
-        //this.usersLst = this.#initUsers();
-    }
-
-    #initUsers(){
-        const res = [];
-        const names = ["yahav","liam"];
-        //get users votes/initalize the localStorage key values
-        for(let i =0 ; i < names.length; i++){
-            const userVote = this.getUserVoteById(i);
-            const user = new User(i,names[i],`${names[i]}@something`,`${names[i]}-p-${names[i]}`,(i%2 != 0),userVote);
-            res.push(user);
-        }
-        return res;
-    }
+    constructor(){}
 
     getAllUsers(){
         return dbDao.getAllUsers();

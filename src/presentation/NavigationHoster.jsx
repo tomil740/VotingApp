@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import VotingScreen from "./votingScreen/VotingScreen";
 import AdminScreen from "./adminScreen/AdminScreen";
 import LoginScreen from "./LoginScreen/LoginScreen";
+import { RecoilRoot } from "recoil";
 
 
 
@@ -18,12 +19,6 @@ function NavigationHoster(){
     const repo = useState(new Repository())[0];
     const [isSignIn,setIsSignIn] = useState(false);
     const [exposeAdminScreen,setExposeAdminScreen] = useState(false);
-
-    const signInScreen = <button onClick={
-        ()=>{
-        repo.signIn("yahav@somthing","yahav-p-yahav")
-        setIsSignIn(true)
-    }}>sign In</button>
 
     const [currentScreen,setCurrentScreen] = useState(<LoginScreen repo={repo} onSignIn={()=>setIsSignIn(true)} />); 
  
@@ -44,9 +39,9 @@ function NavigationHoster(){
 
 
   return (
-    <>
+    <RecoilRoot>
         {currentScreen}
-    </>
+    </RecoilRoot>
   )
 }
 
